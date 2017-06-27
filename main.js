@@ -14,8 +14,24 @@ const columnNames = [
     'expireDate'
 ];
 
+// replace('car', 0, 'b') => 'bar'
 function replace(str, index, paste) {
 	return str.slice(0, index) + paste + str.slice(index + 1);
+}
+
+// transformDate('25.05.11') => new Date('05.25.11')
+// transformDate('25.05.11', true) => new Date('05.25.1911')
+function transformDate(date, moveBack) {
+    let [day, month, year] = date.split('.');
+    if (moveBack) {
+        const currentYear = new Date().getFullYear();
+        if (currentYear < +('20' + year)) {
+            year = '19' + year;
+            console.log(year)
+        }
+    }
+    
+    return new Date(`${month}.${day}.${year}`);
 }
 
 const FIDE_RATING_BEGINNING = 48;
@@ -38,7 +54,19 @@ const mapped = addZero.map(row => row.split(/\s+/)).map(row => {
     row.splice(8, 1); // remove federation column
     row.pop();
     return row;
+}).filter(row => row.length === 10).map(row => {
+    row[7] = transformDate(row[7], true);
+    row[9] = transformDate(row[9]);
+    return row;
+}).map(row => {
+    const player = {};
+    columnNames.forEach((column, i) => {
+        player[column] = row[i];
+    });
+    return player;
 });
+
+
 // console.log(addZero)
 fs.writeFile('players.json', JSON.stringify(mapped, null, 2), (err, result) => {
     if (err) {
