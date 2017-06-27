@@ -17,4 +17,8 @@
     "url": "https://github.com/bodya17/urk_chess_rating_api/issues"
   },
   "homepage": "https://github.com/bodya17/urk_chess_rating_api#readme",
+  "dependencies": {
+    "moment": "^2.18.1",
+    "mongoose": "^4.11.0"
+  }
 }
