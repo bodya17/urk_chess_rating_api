@@ -13,6 +13,5 @@ const playerSchema = mongoose.Schema({
     expireDate: { type: Date }
 });
 
-
 const Player = mongoose.model('Author', playerSchema);
 module.exports = Player;
