@@ -1,0 +1,1 @@
+## my aim with this project is to parse chess players' ratings from http://ukrchess.org.ua and create simple REST API
