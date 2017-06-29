@@ -1,5 +1,6 @@
 const fs = require('fs');
-const data = require('./lvivRatings');
+// const data = require('./ratings/Ivano-Frankivsk');
+const data = require('./ratings/Kyiw');
 
 const columnNames = [
     'lastName',
@@ -10,9 +11,28 @@ const columnNames = [
     'ukrRating',
     'fideRating',
     'dob',
+    'fed',
     'IDF',
     'expireDate'
 ];
+
+const federations = [
+    'АРК',
+    'ЧНИ',
+    'ЧНО',
+    'ЧРК',
+    'ДНЕ',
+    'ДОН',
+    'ХАР',
+    'ХЕР',
+    'ХМЕ',
+    'И-Ф',
+    'КИЕ',
+    'КИО', // нема у базі
+    'КИР',
+    'ЛУГ',
+    ''
+]
 
 // replace('car', 0, 'b') => 'bar'
 function replace(str, index, paste) {
@@ -51,12 +71,12 @@ const mapped = addZero.map(row => row.split(/\s+/)).map(row => {
     if (!row[0]) {
         row.shift();
     }
-    row.splice(8, 1); // remove federation column
+    // row.splice(8, 1); // remove federation column
     row.pop();
     return row;
-}).filter(row => row.length === 10).map(row => {
+}).filter(row => row.length === 11).map(row => {
     row[7] = transformDate(row[7], true);
-    row[9] = transformDate(row[9]);
+    row[10] = transformDate(row[10]);
     return row;
 }).map(row => {
     const player = {};
@@ -68,7 +88,7 @@ const mapped = addZero.map(row => row.split(/\s+/)).map(row => {
 
 
 // console.log(addZero)
-fs.writeFile('players.json', JSON.stringify(mapped, null, 2), (err, result) => {
+fs.writeFile('players.js', 'module.exports = ' + JSON.stringify(mapped, null, 2), (err, result) => {
     if (err) {
         console.log('Error');
         console.log(err);

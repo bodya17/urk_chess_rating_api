@@ -9,9 +9,10 @@ const playerSchema = mongoose.Schema({
     ukrRating: { type: Number },
     fideRating: { type: Number },
     dob: { type: Date },
+    fed : { type: String },
     IDF: { type: String },
     expireDate: { type: Date }
 });
 
-const Player = mongoose.model('Author', playerSchema);
+const Player = mongoose.model('Players', playerSchema);
 module.exports = Player;
