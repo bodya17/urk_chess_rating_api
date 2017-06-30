@@ -40,6 +40,10 @@ function renderChart(data) {
 
 }
 
-fetch('/national-masters')
+// fetch('/national-masters')
+//     .then(res => res.json())
+//     .then(renderChart)
+
+fetch('/average-age')
     .then(res => res.json())
     .then(renderChart)

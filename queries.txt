@@ -1,0 +1,6 @@
+# average by region
+db.getCollection('players').aggregate([
+    {$group: {_id : '$fed', rating: {$avg: '$ukrRating'}}},
+    {$sort: {'rating' : -1}}
+])
+
