@@ -16,23 +16,6 @@ const columnNames = [
     'expireDate'
 ];
 
-const federations = [
-    'АРК',
-    'ЧНИ',
-    'ЧНО',
-    'ЧРК',
-    'ДНЕ',
-    'ДОН',
-    'ХАР',
-    'ХЕР',
-    'ХМЕ',
-    'И-Ф',
-    'КИЕ',
-    'КИО', // нема у базі
-    'КИР',
-    'ЛУГ',
-    ''
-]
 
 // replace('car', 0, 'b') => 'bar'
 function replace(str, index, paste) {

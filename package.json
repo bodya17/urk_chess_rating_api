@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/bodya17/urk_chess_rating_api#readme",
   "dependencies": {
+    "express": "^4.15.3",
     "moment": "^2.18.1",
     "mongoose": "^4.11.0"
   }
