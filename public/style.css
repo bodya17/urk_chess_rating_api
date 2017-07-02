@@ -1,9 +1,15 @@
-#container {
+/*#container {
     height: 500px; 
     min-width: 310px; 
     max-width: 800px; 
     margin: 0 auto; 
+}*/
+.wrapper {
+    display: flex;
+    height: 600px;
+    width: 600px;
 }
+
 .loading {
     margin-top: 10em;
     text-align: center;
