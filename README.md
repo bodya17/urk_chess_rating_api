@@ -1,1 +1,1 @@
-## my aim with this project is to parse chess players' ratings from http://ukrchess.org.ua and create simple REST API
+## my aim with this project is to parse chess players' ratings from http://ukrchess.org.ua/kvalif/index.html and create simple REST API
