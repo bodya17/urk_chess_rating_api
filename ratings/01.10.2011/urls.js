@@ -26,7 +26,7 @@ const urls = [
   'http://ukrchess.org.ua/kvalif/1110/HME.txt',
   'http://ukrchess.org.ua/kvalif/1110/CRK.txt',
   'http://ukrchess.org.ua/kvalif/1110/CNI.txt',
-  'http://ukrchess.org.ua/kvalif/1110/CNO.txt'
+  'http://ukrchess.org.ua/kvalif/1110/CNO.txt',
 ];
 
 module.exports = urls;
