@@ -4,3 +4,11 @@ db.getCollection('players').aggregate([
     {$sort: {'rating' : -1}}
 ])
 
+# calculate rating gains from 2011 to 2016
+
+db.getCollection('players').aggregate([
+    { $unwind: '$ratings' },
+    { $group: {_id: '$_id', first: {$first: '$ratings'}, last: {$last: '$ratings'} }},
+    { $project: {lastName: 1, ratingGain: {$subtract: ['$first.ukrRating','$last.ukrRating']} } },
+    { $sort: {'ratingGain': -1}}
+])
