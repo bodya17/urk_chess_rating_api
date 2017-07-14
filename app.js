@@ -4,8 +4,13 @@ const Player = require('./models/Player');
 const path = require('path');
 const mapping = require('./mapping');
 
-mongoose.connect('mongodb://localhost:27017/ratings');
+mongoose.connect('mongodb://localhost:27017/ratings-nested');
 const app = express();
+
+mongoose.Promise = global.Promise;
+
+app.set('views', path.join(__dirname, 'views')); // this is the folder where we keep our pug files
+app.set('view engine', 'pug'); // we use the engine pug, mustache or EJS work great too
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -24,8 +29,8 @@ app.get('/ratings/:title', (req, res) => {
   query.exec((err, players) => {
     if (err) res.send(err);
     else {
-        res.send(players.map(p => [mapping[p._id], p.total]));
-      }
+      res.send(players.map(p => [mapping[p._id], p.total]));
+    }
   });
 });
 
@@ -123,12 +128,26 @@ function findAverage(fed) {
     return 0;
   });
 
-  const sum = dob.reduce((a, b) => { return a + b; });
+  const sum = dob.reduce((a, b) => a + b);
   const avg = sum / dob.length;
   return [mapping[fed._id], +(avg / 31536000000).toFixed(2)];
 }
 
 const port = 3000;
+
+app.get('/ratingGain', async (req, res) => {
+  // const ratingGainList = await Player.aggregate([
+  //   { $unwind: '$ratings' },
+  //   { $group: { _id: '$_id', first: { $first: '$ratings' }, last: { $last: '$ratings' }, lastName: { $first: '$lastName' } } },
+  //   { $project: { lastName: 1, last: 1, first: 1, ratingGain: { $subtract: ['$first.ukrRating', '$last.ukrRating'] } } },
+  //   { $sort: { ratingGain: -1 } },
+  // ]).exec();
+  Player.find({ firstName: 'Богдан' }).exec((err, players) => {
+    // res.render('rating-gain', { players: ratingGainList });
+    res.render('rating-gain', { players });
+  });
+  // const ratingGainList = [1, 2, 3];
+});
 
 app.listen(port, () => {
   console.log(`server is listening on port ${port}`);
