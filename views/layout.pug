@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    title ratings insights
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-alpha.6/css/bootstrap.css')
+    meta(name="viewport" content="width=device-width, initial-scale=1")
+  body
+    .container
+      block header
+        h1 header
+      block content
+        p this is the default!
+    
+    block scripts
+      script(src='https://code.jquery.com/jquery-1.11.3.min.js')
+      script(src='https://code.highcharts.com/maps/highmaps.js')
+      script(src='https://code.highcharts.com/maps/modules/exporting.js')
+      script(src='https://code.highcharts.com/mapdata/countries/ua/ua-all.js')
+    

@@ -1,10 +1,12 @@
+require('dotenv').config();
+
 const express = require('express');
 const mongoose = require('mongoose');
 const Player = require('./models/Player');
 const path = require('path');
 const mapping = require('./mapping');
 
-mongoose.connect('mongodb://localhost:27017/ratings-nested');
+mongoose.connect('mongodb://localhost:27017/ratings_nested');
 const app = express();
 
 mongoose.Promise = global.Promise;
@@ -136,17 +138,14 @@ function findAverage(fed) {
 const port = 3000;
 
 app.get('/ratingGain', async (req, res) => {
-  // const ratingGainList = await Player.aggregate([
-  //   { $unwind: '$ratings' },
-  //   { $group: { _id: '$_id', first: { $first: '$ratings' }, last: { $last: '$ratings' }, lastName: { $first: '$lastName' } } },
-  //   { $project: { lastName: 1, last: 1, first: 1, ratingGain: { $subtract: ['$first.ukrRating', '$last.ukrRating'] } } },
-  //   { $sort: { ratingGain: -1 } },
-  // ]).exec();
-  Player.find({ firstName: 'Богдан' }).exec((err, players) => {
-    // res.render('rating-gain', { players: ratingGainList });
-    res.render('rating-gain', { players });
-  });
-  // const ratingGainList = [1, 2, 3];
+  const ratingGainList = await Player.aggregate([
+    { $unwind: '$ratings' },
+    { $group: { _id: '$_id', first: { $first: '$ratings' }, last: { $last: '$ratings' }, lastName: { $first: '$lastName' } } },
+    { $project: { lastName: 1, last: 1, first: 1, ratingGain: { $subtract: ['$first.ukrRating', '$last.ukrRating'] } } },
+    { $sort: { ratingGain: -1 } },
+    { $limit: 1 },
+  ]).exec();
+  res.render('rating-gain', { players: ratingGainList });
 });
 
 app.listen(port, () => {
